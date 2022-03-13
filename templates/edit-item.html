@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <!-- item info -->
+    <div class="d-flex justify-content-center bg-white py-5">
+        <div class="rounded shadow-lg w-100 mx-auto p-4" style="max-width: 750px">
+            <div class="container my-3">
+                <h2 class="fw-bold my-">Редактирование резюме</h2>
+                <!--name-->
+                <div class="row mt-4">
+                    <div class="col-sm-3">
+                        <label for="name" class="form-label text-muted">Название</label>
+                    </div>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="name">
+                    </div>
+                </div>
+                <!--description-->
+                <div class="row mt-4">
+                    <div class="col-sm-3">
+                        <label for="description" class="form-label text-muted">Описание</label>
+                    </div>
+                    <div class="col-sm-9">
+                        <textarea class="form-control" id="description" rows="3"></textarea>
+                    </div>
+                </div>
+                <!--price-->
+                <div class="row mt-4">
+                    <div class="col-sm-3">
+                        <label for="price" class="form-label text-muted">Цена</label>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="input-group d-flex w-100">
+                            <input inputmode="numeric" type="number" class="form-control" id="price">
+                            <span class="input-group-text">руб.</span>
+                        </div>
+                    </div>
+                </div>
+                <!--city-->
+                <div class="row mt-4">
+                    <div class="col-sm-3">
+                        <label for="city" class="form-label text-muted">Город</label>
+                    </div>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="city">
+                    </div>
+                </div>
+                <!-- services -->
+                <div class="row mt-4">
+                    <div class="col-sm-3">
+                        <div>Услуги</div>
+                    </div>
+                    <div class="col-sm-9">
+                        <div class="form-check">
+                            <input class="form-check-input red-background-checked shadow-none" type="checkbox" value=""
+                                   id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Уборка квартир
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input red-background-checked shadow-none" type="checkbox" value=""
+                                   id="officeFilter" checked>
+                            <label class="form-check-label" for="officeFilter">
+                                Уборка офисов
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input red-background-checked shadow-none" type="checkbox" value=""
+                                   id="generalFilter" checked>
+                            <label class="form-check-label" for="generalFilter">
+                                Генеральная уборка
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <!-- images -->
+                <div class="row mt-4">
+                    <div class="col-sm-3">
+                        <label for="city" class="form-label text-muted">Изображения</label>
+                    </div>
+
+                    <div class="col-sm-9 d-flex flex-wrap gap-3">
+                        <div class="edit-ad-image rounded border">
+                            <img class="ad-image " src="{% static 'assets/1.png' %}" alt=""/>
+                        </div>
+                         <div class="edit-ad-image rounded border">
+                            <img class="ad-image " src="{% static 'assets/2.png' %}" alt=""/>
+                        </div>
+                         <div class="edit-ad-image rounded border">
+                            <img class="ad-image " src="{% static 'assets/3.png' %}" alt=""/>
+                        </div>
+                         <div class="edit-ad-image rounded border">
+                            <img class="ad-image " src="{% static 'assets/4.png' %}" alt=""/>
+                        </div>
+                         <div class="edit-ad-image rounded border">
+                            <img class="ad-image "  src="{% static 'assets/anon.png' %}" alt=""/>
+                        </div>
+                        <label for="upload" class="edit-ad-image p-4 rounded border">
+                            <img class="w-100 my-auto mx-auto" src="{% static 'images/edit-item/add-image.png' %}" alt=""/>
+                            <input type="file" id="upload" style="display:none">
+                        </label>
+                    </div>
+                </div>
+                <!-- buttons -->
+                <div class="row justify-content-center mt-5">
+                    <div class="col-md-5">
+                        <a class="w-100 btn btn-secondary" href="my-items.html">Отмена</a>
+                    </div>
+                    <div class="col-md-6 offset-md-1 mt-2 mt-md-0">
+                        <a class="w-100 btn blue-button text-white" href="my-items.html">Сохранить</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

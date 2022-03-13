@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <!-- page title -->
+    <div class="d-flex justify-content-center align-items-center blue-gradient" style="height: 240px">
+        <h1 class="display-4 text-white my-auto">Клининговые услуги</h1>
+    </div>
+
+    <!-- white background content -->
+    <div class="d-flex justify-content-center bg-white py-md-5 py-2">
+        <!-- content -->
+        <div class="container">
+            <!-- filter and items -->
+            <div class="row">
+                <!-- filters -->
+                <div class="col-md-3 mb-3">
+                    <div class="bg-white p-2 d-flex flex-column">
+                        <h5>Фильтр услуг</h5>
+                        <div class="form-check">
+                            <input class="form-check-input red-background-checked shadow-none" type="checkbox" value=""
+                                   id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Уборка квартир
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input red-background-checked shadow-none" type="checkbox" value=""
+                                   id="officeFilter" checked>
+                            <label class="form-check-label" for="officeFilter">
+                                Уборка офисов
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input red-background-checked shadow-none" type="checkbox" value=""
+                                   id="generalFilter" checked>
+                            <label class="form-check-label" for="generalFilter">
+                                Генеральная уборка
+                            </label>
+                        </div>
+                        <div class="align-self-center w-auto mt-3">
+                            <button type="button" class="btn red-button text-white  shadow-none">Применить</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- items -->
+                <div class="col-md-9">
+                    {% for ad in latest_ads %}
+                        <!-- item -->
+                        <div class="mt-2 shadow-lg rounded bg-white position-relative p-3">
+                            <div class="row p-0 justify-content-center">
+                                <!-- ad images -->
+                                <div class="col-auto preview-image rounded"
+                                     style="background-image: url('{% static ad.images.first.path %}')">
+                                </div>
+                                <!-- ad info -->
+                                <div class="col-xxl-7 col-xl-6 col-lg-5 col row" style="min-width: 200px">
+                                    <!-- name -->
+                                    <h4 class="text-black">{{ ad.name }}</h4>
+                                    <!-- price -->
+                                    <h5 class="fw-bold">{{ ad.price }} руб.</h5>
+                                    <!-- services -->
+                                    <div class="text-break">
+                                        {% for service in ad.services.all %}
+                                            • {{ service.name }}
+                                        {% endfor %}
+                                    </div>
+                                    <!-- description -->
+                                    <div class="row mt-2 text-muted" style="max-height: 50px; overflow: hidden;">
+                                        <div>{{ ad.description }}</div>
+                                    </div>
+                                    <!-- city -->
+                                    <div class="text-break">{{ ad.city }}</div>
+                                </div>
+                                <!-- user picture, name -->
+                                <div class="col-lg-auto ms-auto d-none d-lg-block flex-column align-items-center"
+                                     style="width: 130px">
+                                    <img class="rounded" src="{% static ad.user.image.path %}" alt="Not Found"/>
+                                    <div class="text-muted fw-bold text-center  overflow-hidden text-nowrap w-100">{{ ad.user.name }}
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- link -->
+                            <a class="stretched-link" href="item-info/{{ ad.id }}"></a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
