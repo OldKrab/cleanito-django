@@ -1,0 +1,14 @@
+{% if widget.is_initial %}
+    <div class="preview-image rounded"
+         style="background-image: url('{{ widget.value.url }}')">
+    </div>
+    {% if not widget.required %}
+        <div>
+            <input type="checkbox" name="{{ widget.checkbox_name }}" id="{{ widget.checkbox_id }}"
+                    {% if widget.attrs.disabled %} disabled{% endif %}>
+            <label for="{{ widget.checkbox_id }}">Удалить изображение</label>
+        </div>
+    {% endif %}
+    Заменить изображение:
+{% endif %}
+<input type="{{ widget.type }}" name="{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %}>

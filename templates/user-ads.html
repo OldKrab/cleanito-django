@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <!-- page title -->
+    <div class="d-flex justify-content-center align-items-center blue-gradient" style="height: 140px">
+        <h1 class="display-4 text-white my-auto">Мои объявления</h1>
+    </div>
+
+    <!-- white background content -->
+    <div class="d-flex justify-content-center bg-white py-5">
+        <!-- content -->
+        <div class="container">
+            <div class="mx-auto" style="max-width: 500px;">
+                <a class="btn blue-button text-white w-100" href="{% url 'ad-create' %}">Добавить новое объявление</a>
+            </div>
+            <!-- items -->
+            <div class="row mt-3">
+                {% for ad in ad_list %}
+                    <!-- item -->
+                    <div class="mt-2 shadow-lg rounded bg-white p-3">
+                        <div class="row p-0 justify-content-center  ">
+                            <!-- ad images -->
+                            <div class="col-auto preview-image rounded position-relative"
+                                 style="background-image: url({% if ad.image %} {{ ad.image.url }} {% endif %})">
+                                <!-- link -->
+                                <a class="stretched-link" href="{% url 'ad' ad.id %}"></a>
+                            </div>
+                            <!-- ad info -->
+                            <div class="col-lg-9 col row" style="min-width: 250px">
+                                <!-- name -->
+                                <h4 class="text-black">{{ ad.name }}</h4>
+                                <!-- price -->
+                                <h5 class="fw-bold">{{ ad.price }} руб.</h5>
+                                <!-- services -->
+                                <div class="text-break">
+                                    {% for service in ad.services.all %}
+                                        • {{ service.name }}
+                                    {% endfor %}
+                                </div>
+                                <!-- description -->
+                                <div class="row mt-2 text-muted" style="max-height: 75px; overflow: hidden;">
+                                    <div>{{ ad.description }}</div>
+                                </div>
+                                <!-- buttons -->
+                                <div class="row justify-content-end p-3">
+                                    <a class="col-md-auto btn blue-button text-white"
+                                       href="{% url 'ad-update' ad.id  %}">Редактировать</a>
+                                    <a class="col-md-auto btn btn-danger text-white mt-2 mt-md-0 ms-2"
+                                    href="{% url 'ad-delete' ad.id  %}">Удалить</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

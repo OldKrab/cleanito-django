@@ -46,13 +46,13 @@
                 </div>
                 <!-- items -->
                 <div class="col-md-9">
-                    {% for ad in latest_ads %}
+                    {% for ad in ad_list %}
                         <!-- item -->
                         <div class="mt-2 shadow-lg rounded bg-white position-relative p-3">
                             <div class="row p-0 justify-content-center">
                                 <!-- ad images -->
                                 <div class="col-auto preview-image rounded"
-                                     style="background-image: url('{% static ad.images.first.path %}')">
+                                     style="background-image: url('{% if ad.image %} {{ ad.image.url }} {% endif %}')">
                                 </div>
                                 <!-- ad info -->
                                 <div class="col-xxl-7 col-xl-6 col-lg-5 col row" style="min-width: 200px">
@@ -74,15 +74,15 @@
                                     <div class="text-break">{{ ad.city }}</div>
                                 </div>
                                 <!-- user picture, name -->
-                                <div class="col-lg-auto ms-auto d-none d-lg-block flex-column align-items-center"
+                                <div class="col-lg-auto ms-auto d-none d-lg-flex flex-column align-items-center"
                                      style="width: 130px">
-                                    <img class="rounded" src="{% static ad.user.image.path %}" alt="Not Found"/>
+                                    <img class="rounded" {% if ad.user.image %} src="{{ ad.user.image.url }}" {% endif %} alt="Not Found"/>
                                     <div class="text-muted fw-bold text-center  overflow-hidden text-nowrap w-100">{{ ad.user.name }}
                                     </div>
                                 </div>
                             </div>
                             <!-- link -->
-                            <a class="stretched-link" href="item-info/{{ ad.id }}"></a>
+                            <a class="stretched-link" href="{% url 'ad' ad.id %}"></a>
                         </div>
                     {% endfor %}
                 </div>

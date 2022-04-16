@@ -1,42 +1,47 @@
-from django.http import HttpResponse
-from .models import *
-from django.shortcuts import render, get_object_or_404
-from django.http import Http404
+from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
+from django.urls import reverse, reverse_lazy
+from .forms import *
 
 current_user = User.objects.first()
 
 
-def index(request):
-    latest_ads = Ad.objects.order_by('-creation_date')
-    context = {
-        'latest_ads': latest_ads,
-        'user': current_user
-    }
-    return render(request, 'index.html', context)
+class HomeView(ListView):
+    model = Ad
+    template_name = 'index.html'
+    ordering = ['-creation_date']
 
 
-def item_info(request, ad_id):
-    ad = get_object_or_404(Ad, id=ad_id)
-    context = {
-        'ad': ad,
-        'user': current_user
-    }
-    return render(request, 'item-info.html', context)
+class UserAdsView(ListView):
+    model = Ad
+    template_name = 'user-ads.html'
+
+    def get_queryset(self):
+        return Ad.objects.filter(user=User.objects.first()).order_by('-creation_date')
 
 
-def my_items(request):
-    my_ads = current_user.ad_set.all()
-    context = {
-        'my_ads': my_ads,
-        'user': current_user
-    }
-    return render(request, 'my-items.html', context)
+class AdInfoView(DetailView):
+    model = Ad
+    template_name = 'ad-info.html'
 
 
-def edit_item(request, ad_id):
-    ad = get_object_or_404(Ad, id=ad_id)
-    context = {
-        'ad': ad,
-        'user': current_user
-    }
-    return render(request, 'edit-item.html', context)
+class AdCreateView(CreateView):
+    model = Ad
+    template_name = 'ad-create.html'
+    form_class = AdForm
+    success_url = reverse_lazy('user-ads')
+
+    def form_valid(self, form):
+        form.instance.user = User.objects.first()
+        return super().form_valid(form)
+
+
+class AdUpdateView(AdCreateView, UpdateView):
+    template_name = 'ad-update.html'
+
+
+class AdDeleteView(DeleteView):
+    model = Ad
+    template_name = 'ad-delete.html'
+    success_url = reverse_lazy('user-ads')
+
+

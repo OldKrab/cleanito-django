@@ -20,8 +20,10 @@ from mainapp import views
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    path('', views.index, name='index'),
-    path('item-info/<int:ad_id>', views.item_info, name='item-info'),
-    path('edit-item/<int:ad_id>', views.edit_item, name='edit-item'),
-    path('my-items', views.my_items, name='my-items'),
+    path('', views.HomeView.as_view(), name='index'),
+    path('user-ads', views.UserAdsView.as_view(), name='user-ads'),
+    path('ad/<int:pk>', views.AdInfoView.as_view(), name='ad'),
+    path('ad/<int:pk>/update', views.AdUpdateView.as_view(), name='ad-update'),
+    path('ad/<int:pk>/delete', views.AdDeleteView.as_view(), name='ad-delete'),
+    path('ad/create', views.AdCreateView.as_view(), name='ad-create'),
 ]

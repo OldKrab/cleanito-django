@@ -28,16 +28,16 @@
         <ul class="navbar-nav collapse navbar-collapse" id="navbarNavDropdown">
             <li class="nav-item">
                 <a class="nav-link {% if request.resolver_match.url_name == 'index' %}active{% endif %} text-white"
-                   aria-current="page" href="{% url 'index' %}">Поиск резюме</a>
+                   aria-current="page" href="{% url 'index' %}">Поиск объявления</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {% if request.resolver_match.url_name == 'my-items' %}active{% endif %} text-white"
-                   aria-current="page" href="{% url 'my-items' %}">Мои резюме</a>
+                <a class="nav-link {% if request.resolver_match.url_name == 'user-ads' %}active{% endif %} text-white"
+                   aria-current="page" href="{% url 'user-ads' %}">Мои объявления</a>
             </li>
             <li class="ms-md-auto me-4 nav-item">
                 <!-- user picture, name -->
                 <div class="d-flex align-items-center">
-                    <img class="rounded-circle" src="{% static user.image.path %}" alt="Not Found" style="width: 45px"/>
+                    <img class="rounded-circle" {% if user.image  %} src="{{ user.image.url }}" {% endif %} alt="Not Found" style="width: 45px"/>
                     <div class="ms-2 text-white">
                         {{ user.name }}
                     </div>
